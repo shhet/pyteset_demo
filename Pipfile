@@ -5,6 +5,9 @@ name = "pypi"
 
 [packages]
 requests = "*"
+pytest-mock = "*"
+packagename = {editable = true, path = "."}
+pytest-cov = "*"
 
 [dev-packages]
 pytest = "*"
