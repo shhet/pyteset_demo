@@ -8,6 +8,7 @@ requests = "*"
 pytest-mock = "*"
 packagename = {editable = true, path = "."}
 pytest-cov = "*"
+flask = "*"
 
 [dev-packages]
 pytest = "*"
