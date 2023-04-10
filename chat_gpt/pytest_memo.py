@@ -1,3 +1,117 @@
+from flask import MultiDict
+from unittest.mock import Mock
+
+# Mock request.argsを辞書型として再生成する関数
+def create_mock_request_args(args_dict):
+    args = MultiDict(args_dict)
+    return args
+
+class TestC:
+    def test_main_with_query_value(self, mocker):
+        # モックするrequest.argsの設定
+        args_mock = create_mock_request_args({'query_key': 'query_value', 'somekey': 'some_value'})
+        mocker.patch.object(request, 'args', args_mock)
+        
+        c = C()
+        result = c.main()
+        
+        assert result == 1
+    
+    def test_main_with_invalid_query_value(self, mocker):
+        # モックするrequest.argsの設定
+        args_mock = create_mock_request_args({'query_key': 'invalid_value', 'somekey': 'some_value'})
+        mocker.patch.object(request, 'args', args_mock)
+        
+        c = C()
+        result = c.main()
+        
+        assert result == 0
+        
+    def test_main_with_empty_args_and_true_v(self, mocker):
+        # モックするrequest.argsの設定
+        args_mock = create_mock_request_args({})
+        mocker.patch.object(request, 'args', args_mock)
+        
+        c = C()
+        c.v = True
+        result = c.main()
+        
+        assert result == 0
+        
+    def test_main_with_empty_args_and_false_v(self, mocker):
+        # モックするrequest.argsの設定
+        args_mock = create_mock_request_args({})
+        mocker.patch.object(request, 'args', args_mock)
+        
+        c = C()
+        c.v = False
+        result = c.main()
+        
+        assert result == 1
+    
+    def test_main_with_side_effect(self, mocker):
+        # モックするrequest.args.getの設定
+        mocker.patch.object(request.args, 'get', side_effect=['query_value', 'some_value'])
+        
+        c = C()
+        result = c.main()
+        
+        assert result == 1
+
+
+from flask import MultiDict
+
+# Mock request.argsを辞書型として再生成する関数
+def create_mock_request_args(args_dict):
+    args = MultiDict(args_dict)
+    return args
+
+class TestC:
+    def test_main_with_query_value(self, mocker):
+        # モックするrequest.argsの設定
+        args_mock = create_mock_request_args({'query_key': 'query_value'})
+        mocker.patch.object(request, 'args', args_mock)
+        
+        c = C()
+        result = c.main()
+        
+        assert result == 1
+    
+    def test_main_with_invalid_query_value(self, mocker):
+        # モックするrequest.argsの設定
+        args_mock = create_mock_request_args({'query_key': 'invalid_value'})
+        mocker.patch.object(request, 'args', args_mock)
+        
+        c = C()
+        result = c.main()
+        
+        assert result == 0
+        
+    def test_main_with_empty_args_and_true_v(self, mocker):
+        # モックするrequest.argsの設定
+        args_mock = create_mock_request_args({})
+        mocker.patch.object(request, 'args', args_mock)
+        
+        c = C()
+        c.v = True
+        result = c.main()
+        
+        assert result == 0
+        
+    def test_main_with_empty_args_and_false_v(self, mocker):
+        # モックするrequest.argsの設定
+        args_mock = create_mock_request_args({})
+        mocker.patch.object(request, 'args', args_mock)
+        
+        c = C()
+        c.v = False
+        result = c.main()
+        
+        assert result == 1
+
+
+
+
 from flask import request
 
 class C:
