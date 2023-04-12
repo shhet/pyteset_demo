@@ -1,0 +1,11 @@
+### note create
+
+POST http://127.0.0.1:5000/note?q=query
+content-type: application/json
+
+{
+    "a": "curl",
+    "b": "rest"
+}
+
+###
