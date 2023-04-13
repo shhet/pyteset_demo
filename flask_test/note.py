@@ -3,7 +3,9 @@ from flask import request
 
 def some_process(d: dict):
     print('\n[processing ...]')
-    return d
+
+    # 何番でも自由に返すことができる
+    return d, 201
 
 
 def create_note():
